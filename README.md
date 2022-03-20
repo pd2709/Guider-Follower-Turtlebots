@@ -1,5 +1,5 @@
-# SCMS-AUT2022
-Guider/Follower Turtlebots
+# Guider-Follower-Turtlebots
+SCMS-AUT2022
 
 
 🙂 Start each day off right
