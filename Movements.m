@@ -6,7 +6,7 @@ clc
 rosshutdown
 rosinit
 
-%tbot = turtlebot('192.168.0.22');
+tbot = turtlebot % need Matlab TurtleBot Support Package to use this https://au.mathworks.com/matlabcentral/fileexchange/55578-ros-toolbox-support-package-for-turtlebot-based-robots
 
 % get rgb and depth from ROS (look at this stuff later)
 rgb = rossubscriber('/camera/rgb/image_raw');
