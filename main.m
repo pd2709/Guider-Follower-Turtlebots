@@ -1,8 +1,8 @@
 function [] = main(IPAddress)
     Turtle = TurtlebotFollower(IPAddress);
-    Turtle.setVelocity(0.2,0.1)
+    Turtle.setVelocity(0,0)
     r = rosrate(10);
-    while(1)
+    for i = 1:20
         Turtle.pubVelocity;
         waitfor(r);
     end
