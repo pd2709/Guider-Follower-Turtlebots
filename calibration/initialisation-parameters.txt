@@ -1,0 +1,51 @@
+Aspect ratio optimized (est_aspect_ratio = 1) -> both components of fc are estimated (DEFAULT).
+Principal point optimized (center_optim=1) - (DEFAULT). To reject principal point, set center_optim=0
+Skew not optimized (est_alpha=0) - (DEFAULT)
+Distortion not fully estimated (defined by the variable est_dist):
+     Sixth order distortion not estimated (est_dist(5)=0) - (DEFAULT) .
+Initialization of the principal point at the center of the image.
+Initialization of the intrinsic parameters using the vanishing points of planar patterns.
+
+Initialization of the intrinsic parameters - Number of images: 25
+
+
+Calibration parameters after initialization:
+
+Focal Length:          fc = [ 631.94517   631.94517 ]
+Principal point:       cc = [ 319.50000   239.50000 ]
+Skew:             alpha_c = [ 0.00000 ]   => angle of pixel = 90.00000 degrees
+Distortion:            kc = [ 0.00000   0.00000   0.00000   0.00000   0.00000 ]
+
+Main calibration optimization procedure - Number of images: 25
+Gradient descent iterations: 1...2...3...4...5...6...7...8...9...10...11...12...13...14...15...16...17...18...19...20...21...done
+Estimation of uncertainties...done
+
+
+Calibration results after optimization (with uncertainties):
+
+Focal Length:          fc = [ 630.13539   631.07642 ] +/- [ 4.20206   4.04605 ]
+Principal point:       cc = [ 307.90115   250.95666 ] +/- [ 3.83799   3.67068 ]
+Skew:             alpha_c = [ 0.00000 ] +/- [ 0.00000  ]   => angle of pixel axes = 90.00000 +/- 0.00000 degrees
+Distortion:            kc = [ 0.14042   -0.57813   0.00301   -0.00181  0.00000 ] +/- [ 0.02371   0.09755   0.00206   0.00210  0.00000 ]
+Pixel error:          err = [ 0.55455   0.50160 ]
+
+Note: The numerical errors are approximately three times the standard deviations (for reference).
+
+
+>> reproject on images
+
+
+Number(s) of image(s) to show ([] = all images) = 
+Pixel error:      err = [0.55455   0.50160] (all active images)
+
+>> saving data info
+Saving calibration results under Calib_Results.mat
+Generating the matlab script file Calib_Results.m containing the intrinsic and extrinsic parameters...
+done
+Tool that exports calibration data to Willson-Heikkila or Zhang formats
+Two possible formats of export: 0=Willson and Heikkila, 1=Zhang
+Format of export (enter 0 or 1): 1
+
+Export of calibration data to text files (Zhang's format)
+File basename for the 3D world coordinates: c
+File basename for the 2D image coordinates: t
