@@ -12,7 +12,8 @@ tbot = turtlebot % need Matlab TurtleBot Support Package to use this https://au.
 rgb = rossubscriber('/camera/rgb/image_raw');
 depth = rossubscriber ('/camera/depth/image_raw');
 
-
+%get command velocity
+vel = getVelocity(tbot);
 
 
 % move Turtlebot forward for 1 metre
@@ -49,11 +50,16 @@ theta = rad2deg(angles(1))
 
 %move turtlebot to a target point (maybe use Twist) http://wiki.ros.org/turtlesim/Tutorials/Go%20to%20Goal
 % create a while loop which has while turtlbot pose does not equal target
-% p
+% create seperate class with functions from http://wiki.ros.org/turtlesim/Tutorials/Go%20to%20Goal
+
 
 target_pose_x = 4;
 target_pose_y = 2;
 
+while( x ~= target_pose_x && y ~= target_pose_y)
+    % function stuff with linear and angular velocities that are
+    % recalculated, use website in comment above
+end
 
 
 
