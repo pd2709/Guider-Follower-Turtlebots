@@ -13,7 +13,7 @@ rgb = rossubscriber('/camera/rgb/image_raw');
 depth = rossubscriber ('/camera/depth/image_raw');
 
 %get command velocity
-vel = getVelocity(tbot);
+%vel = getVelocity(tbot);
 
 
 % move Turtlebot forward for 1 metre
@@ -59,9 +59,10 @@ target_pose_y = 2;
 while( x ~= target_pose_x && y ~= target_pose_y)
     % function stuff with linear and angular velocities that are
     % recalculated, use website in comment above
+
 end
 
-
+function euclidean_distance(tbot,pose)
 
 
 %rostopic type /cmd_vel
