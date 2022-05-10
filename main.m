@@ -19,6 +19,7 @@ function [] = main(IPAddress)
              
         visualservoing(targetPoints,obsPoints,Z)
         
+        
         Turtle.updateCmdVel;
         Turtle.pubVelocity;
         waitfor(r);
