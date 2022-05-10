@@ -1,8 +1,9 @@
 Setup the subscribers within the TurtlebotFollower class to access camera infomation
-Find the focal length and principle point of the camera we're using
-	~~Print the checker board~~
-	~~Take pictures~~
-	~~Run the calibration exercise to find focal length and principle point~~
+Find the focal length and principle point of the camera we're using:
+	- ~~Print the checker board~~
+	- ~~Take pictures~~
+	- ~~Run the calibration exercise to find focal length and principle point~~
+	
 For the Target point
 	Take a photo of the marker in the desired spot in front of the follower turtlebot, use this to find the x,y coordinates of where we want the marker to land on the image
 Figure out how to convert image processing outputs into Observed points
