@@ -19,9 +19,10 @@ classdef TurtlebotFollower < handle
         % Setup the ROS environment, subscribers, and publishers within the
         % constructor
         function object = TurtlebotFollower(IPInput)
+            rosshutdown
             rosinit(IPInput,11311)
             [object.velPub, object.velMsg] = rospublisher("/cmd_vel", "geometry_msgs/Twist", "DataFormat", "struct");
-            object.imgSub = rossubscriber("/camera/rgb/image_raw","sensor_msgs/Image","DataFormat","struct");
+            object.imgSub = rossubscriber("/camera/color/image_raw/compressed","sensor_msgs/CompressedImage","DataFormat","struct");
             object.depthSub = rossubscriber("camera/depth/image_raw","sensor_msgs/Image","DataFormat","struct");
             object.IPAddress = IPInput;
         end
@@ -69,20 +70,20 @@ classdef TurtlebotFollower < handle
         end
 
         % Update usable depth image
-        function [ ] = udpateObsDepth(object)
+        function [ ] = updateObsDepth(object)
             object.updateDepth();
             object.obsDepth = rosReadImage(object.depthMsg);
         end
 
         function [ ] = updateCmdVel(object)
-            img = object.obsImg
-            depth = object.obsDepth
+            img = object.obsImg;
+            depth = object.obsDepth;
 
             % VISUAL SERVOING CODE %
 
-            cmdVel = ;
+            cmdVel = zeros(1,6);
 
-            object.updateCmdVel(cmdVel);
+            object.setVelocity(cmdVel(1),cmdVel(6));
         end
 
         
