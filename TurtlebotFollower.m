@@ -34,8 +34,13 @@ classdef TurtlebotFollower < handle
 
         % Set the command velocity
         function [ ] = setVelocity(object, input1, input2)
-            object.velMsg.Linear.X = input1;
-            object.velMsg.Angular.Z = input2;
+            if ((abs(input1) < 0.005) && (abs(input2) < 0.005))
+                object.velMsg.Linear.X = 0.0;
+                object.velMsg.Angular.Z = 0.0;
+            else
+                object.velMsg.Linear.X = input1;
+                object.velMsg.Angular.Z = input2;
+            end
         end
 
         % Publish the command velocity
@@ -75,46 +80,44 @@ classdef TurtlebotFollower < handle
             object.obsDepth = rosReadImage(object.depthMsg);
         end
 
-        function [ ] = updateCmdVel(object)
-            img = object.obsImg;
-            depth = object.obsDepth;
+        % This function will only work if object.obsImg is updated from
+        % object.updateObsImg function beforehand
+        function [xy] = getPoints(object)
+            % Extract channels channels so we can apply a mask
+            redChannel = Turtle.obsImg(:, :, 1);
+            greenChannel = Turtle.obsImg(:, :, 2);
+            blueChannel = Turtle.obsImg(:, :, 3);
 
-            % VISUAL SERVOING CODE %
-
-            cmdVel = zeros(1,6);
-
-            object.setVelocity(cmdVel(1),cmdVel(6));
+            % Threshold to find the blobs
+            redMask = redChannel < 128;
+            greenMask = greenChannel > 90;
+            blueMask = blueChannel < 128;
+            mask = redMask + greenMask + blueMask;
+            mask = mask > 2;
+            % Extract only the 4 largest blobs.
+            mask = bwareafilt(mask, 4);
+            % Find centroids.
+            props = regionprops(mask, 'Centroid');
+            % Extract centroids from structure into a double array.
+            xy = vertcat(props.Centroid);
         end
-
         
-        function [Vc] = visualservoing(targetPoints,obsPoints,fakeZ)
+        function [Vc] = visualservoing(obsPoints)
             %UNTITLED Summary of this function goes here
             %   Detailed explanation goes here
             
-            %% comment out this section when actually getting real values from the main
-            % targetPoints = [  213,240;
-            %                                 213,96;
-            %                                 426,240;
-            %                                 426,96];
-            % obsPoints = targetPoints;
-            % obsPoints(:,2) = targetPoints(:,2) - 50;
-            %                                     
-            % %             obsPoints = [163,    290; %make these to the left of target and down abit
-            % %                             163,    146;
-            % %                             376,    290;
-            % %                             376 ,   146];
-            % 
-            %          %depth from observed depth image collected
-            %              % use fake z value for now
-            %              fakeZ = 50;
+            % Hard coded target points from the target.jpg image
+            targetPoints = [    213,240;
+                                213,96;
+                                426,240;
+                                426,96];
             
             %%
             % Control (values from Pooja's calibration)
             f = [ 630.135394139079153 ; 631.076416145119879 ];
             p = [ 307.901145498176732 ; 250.956660551046383 ];
-            % z = 50; %???
-            Z = fakeZ;
-            l = 0.1; %lambda %???
+            Z = 50;
+            l = 0.1;
             
             xy(:,1) = (targetPoints(:,1)-p(1))/f(1);
             xy(:,2) = (targetPoints(:,2)-p(2))/f(2);
@@ -137,8 +140,7 @@ classdef TurtlebotFollower < handle
             Lx2 = inv(Lx'*Lx)*Lx';
             Vc = -l*Lx2*e
             
-            
-            end
+        end
 
 
     end
