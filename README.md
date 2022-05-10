@@ -1,5 +1,23 @@
-# Guider-Follower-Turtlebots
+# Guider-Follower-Turtlebots using a 4-Dot Marker
 SCMS-AUT2022
+This project uses MATLAB and ROS to control a Turtlebot3 waffle. By using an RGB-D camera on the follower turtlebot the robot is able to track the 4 dot marker on the leader turtlebot and follow it while keeping a set distance away.
+
+<b> <i>Required Software: </i></b>
+- Ubuntu 20.04
+- MATLAB
+- ROS Noetic
+
+
+<b> <i>Matlab Add-ons: </i></b>
+
+
+<b> <i>Dependent ROS Packages: </i></b>
+
+
+<b> <i>Turtlebot3 Packages: </i></b>
+
+
+
 
 
 🙂 Start each day off right
