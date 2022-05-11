@@ -11,7 +11,21 @@ cp = detectHarrisFeatures(img);
 
 cp.Location
 cp.plot
+%%
 
+    BW = imread('Pstraight1.tif');
+    BW = I < 100;
+    imshow(BW)
+    stats = regionprops('table',BW,'Centroid',...
+    'MajorAxisLength','MinorAxisLength')
+    centers = stats.Centroid;
+    diameters = mean([stats.MajorAxisLength stats.MinorAxisLength],2);
+    radii = diameters/2;
+    hold on
+    viscircles (centers, radii);
+    hold off
+% hax = drawcircle(gca,'Center',[115 69],'Radius', 400);
+% mask = createMask(hax);
 %% Control
 
 f = 400;
