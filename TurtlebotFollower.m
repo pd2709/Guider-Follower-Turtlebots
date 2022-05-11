@@ -84,9 +84,9 @@ classdef TurtlebotFollower < handle
         % object.updateObsImg function beforehand
         function [xy] = getPoints(object)
             % Extract channels channels so we can apply a mask
-            redChannel = Turtle.obsImg(:, :, 1);
-            greenChannel = Turtle.obsImg(:, :, 2);
-            blueChannel = Turtle.obsImg(:, :, 3);
+            redChannel = object.obsImg(:, :, 1);
+            greenChannel = object.obsImg(:, :, 2);
+            blueChannel = object.obsImg(:, :, 3);
 
             % Threshold to find the blobs
             redMask = redChannel < 128;
@@ -102,21 +102,21 @@ classdef TurtlebotFollower < handle
             xy = vertcat(props.Centroid);
         end
         
-        function [Vc] = visualservoing(obsPoints)
+        function [Vc] = visualservoing(object, obsPoints)
             %UNTITLED Summary of this function goes here
             %   Detailed explanation goes here
             
             % Hard coded target points from the target.jpg image
-            targetPoints = [    213,240;
-                                213,96;
-                                426,240;
-                                426,96];
+            targetPoints = [    221,198;
+                                226,64;
+                                449,64;
+                                455,196];
             
             %%
             % Control (values from Pooja's calibration)
             f = [ 630.135394139079153 ; 631.076416145119879 ];
             p = [ 307.901145498176732 ; 250.956660551046383 ];
-            Z = 50;
+            Z = 0.8;
             l = 0.1;
             
             xy(:,1) = (targetPoints(:,1)-p(1))/f(1);

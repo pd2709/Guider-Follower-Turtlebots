@@ -7,12 +7,12 @@ function [] = main(IPAddress)
     receive(Turtle.depthSub);
 
     while(1) % for i = 1:20
-        Turtle.updateObsRGB;
+        Turtle.updateObsImg;
         Turtle.updateObsDepth;
         xy = Turtle.getPoints;
         Vc = Turtle.visualservoing(xy);
-        Turtle.setVelocity(Vc(1),Vc(6));       
-        Turtle.updateCmdVel;
+        Turtle.setVelocity(Vc(1)/10,Vc(6));  
+        %Turtle.setVelocity(0.0, Vc(6));
         Turtle.pubVelocity;
         waitfor(r);
     end
