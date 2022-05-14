@@ -1,7 +1,12 @@
 classdef TurtlebotFollower < handle
     %TURTLEBOTFOLLOWER Summary of this class goes here
     %   Detailed explanation goes here
-    
+    properties (Constant)
+        CAMERA_CC = [ 307.901145498176732 ; 250.956660551046383 ];       % Camera principle point
+        IMAGE_SIZE = [640; 480];
+        MAX_SPEED = [0.26; 1.82]
+    end
+
     properties
         IPAddress           % IP address of the ROS HOST - Saved for possible future use
         velPub              % Velocity Publisher
@@ -80,6 +85,13 @@ classdef TurtlebotFollower < handle
             object.obsDepth = rosReadImage(object.depthMsg);
         end
 
+        % Stop Turtlebot - Used to immediately set velocity message to 0
+        % and publish
+        function [ ] = stopVelocity(object)
+            object.setVelocity(0,0);
+            object.pubVelocity;
+        end
+
         % This function will only work if object.obsImg is updated from
         % object.updateObsImg function beforehand
         function [xy] = getPoints(object)
@@ -141,8 +153,6 @@ classdef TurtlebotFollower < handle
             Vc = -l*Lx2*e
             
         end
-
-
     end
 end
 
