@@ -14,18 +14,13 @@ function [] = main(IPAddress)
 
         % Calculate the angular velocity
         xy = Turtle.getPoints;  % Get the marker positions within the camera frame
-        location = 0;               % Find the average left/right location of the marker points within the image
-        for i = 1:size(xy)
-            location = xy(i,1) - Turtle.CAMERA_CC(1);
-        end
-        location2 = location / size(xy);
-        angularVelocity = location2/(Turtle.IMAGE_SIZE(1)/2) * Turtle.MAX_SPEED(2)
+        location2 = xy(1,1) - Turtle.CAMERA_CC(1);
+        angularVelocity = 0.2 * -Turtle.MAX_SPEED(2) * location2/(Turtle.IMAGE_SIZE(1)/2)
 
         % old visual servoing implementation - Control isn't smooth so
         % switching out to left/right
-        %Vc = Turtle.visualservoing(xy);
-        %Turtle.setVelocity(0.0, Vc(6));         %Turtle.setVelocity(Vc(1)/10,Vc(6));  
-        %Turtle.pubVelocity;
+        Turtle.setVelocity(0.0, angularVelocity);         %Turtle.setVelocity(Vc(1)/10,Vc(6));  
+        Turtle.pubVelocity;
         waitfor(r);
     end
 end

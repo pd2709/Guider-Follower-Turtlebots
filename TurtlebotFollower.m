@@ -101,13 +101,13 @@ classdef TurtlebotFollower < handle
             blueChannel = object.obsImg(:, :, 3);
 
             % Threshold to find the blobs
-            redMask = redChannel < 128;
-            greenMask = greenChannel > 90;
-            blueMask = blueChannel < 128;
+            redMask = redChannel > 160;
+            greenMask = greenChannel > 160;
+            blueMask = blueChannel > 160;
             mask = redMask + greenMask + blueMask;
             mask = mask > 2;
-            % Extract only the 4 largest blobs.
-            mask = bwareafilt(mask, 4);
+            % Extract only the largest blobs.
+            mask = bwareafilt(mask, 1);
             % Find centroids.
             props = regionprops(mask, 'Centroid');
             % Extract centroids from structure into a double array.
