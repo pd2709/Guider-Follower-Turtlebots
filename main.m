@@ -13,13 +13,19 @@ function [] = main(IPAddress)
         Turtle.updateObsDepth;
 
         % Calculate the angular velocity
-        xy = Turtle.getPoints;  % Get the marker positions within the camera frame
+        xy = Turtle.getPoints  % Get the marker positions within the camera frame
         location2 = xy(1,1) - Turtle.CAMERA_CC(1);
         angularVelocity = 0.2 * -Turtle.MAX_SPEED(2) * location2/(Turtle.IMAGE_SIZE(1)/2)
 
-        % old visual servoing implementation - Control isn't smooth so
-        % switching out to left/right
-        Turtle.setVelocity(0.0, angularVelocity);         %Turtle.setVelocity(Vc(1)/10,Vc(6));  
+        % Calculate the distance and linear velocity
+        depth = Turtle.obsDepth(round(xy(2)*0.75),round(xy(1)*0.75))
+        goalDepth = 760.0;
+        difference = depth - goalDepth
+        scale = double(difference) / double(goalDepth)
+        linearVelocity = Turtle.MAX_SPEED(1) * scale
+
+        %Turtle.setVelocity(0.0, angularVelocity);           
+        Turtle.setVelocity(linearVelocity, angularVelocity);           
         Turtle.pubVelocity;
         waitfor(r);
     end
