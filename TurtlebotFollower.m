@@ -30,6 +30,9 @@ classdef TurtlebotFollower < handle
             object.imgSub = rossubscriber("/camera/color/image_raw/compressed","sensor_msgs/CompressedImage","DataFormat","struct");
             object.depthSub = rossubscriber("camera/depth/image_raw","sensor_msgs/Image","DataFormat","struct");
             object.IPAddress = IPInput;
+            pause(2);
+            object.setVelocity(0,0) % Set and publish the velocity to 0 at startup for easy stopping outside of the main loop
+            object.pubVelocity
         end
         
         % Get the command velocity

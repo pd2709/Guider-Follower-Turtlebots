@@ -20,9 +20,9 @@ function [] = main(IPAddress)
         % Calculate the distance and linear velocity
         depth = Turtle.obsDepth(round(xy(2)*0.75),round(xy(1)*0.75))
         goalDepth = 760.0;
-        difference = depth - goalDepth
-        scale = double(difference) / double(goalDepth)
-        linearVelocity = Turtle.MAX_SPEED(1) * scale
+        difference = depth - goalDepth;
+        scale = double(difference) / double(goalDepth);
+        linearVelocity = Turtle.MAX_SPEED(1) * scale;
 
         %Turtle.setVelocity(0.0, angularVelocity);           
         Turtle.setVelocity(linearVelocity, angularVelocity);           
