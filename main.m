@@ -15,10 +15,10 @@ function [] = main(IPAddress)
         % Calculate the angular velocity
         xy = Turtle.getPoints  % Get the marker positions within the camera frame
         location2 = xy(1,1) - Turtle.CAMERA_CC(1);
-        angularVelocity = 0.2 * -Turtle.MAX_SPEED(2) * location2/(Turtle.IMAGE_SIZE(1)/2)
+        angularVelocity = 0.2 * -Turtle.MAX_SPEED(2) * location2/(Turtle.IMAGE_SIZE(1)/2);
 
         % Calculate the distance and linear velocity
-        depth = Turtle.obsDepth(round(xy(2)*0.75),round(xy(1)*0.75))
+        depth = Turtle.obsDepth(round(xy(2)*0.75),round(xy(1)*0.75));
         goalDepth = 760.0;
         difference = depth - goalDepth;
         scale = double(difference) / double(goalDepth);
