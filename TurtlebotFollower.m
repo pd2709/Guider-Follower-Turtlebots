@@ -97,12 +97,11 @@ classdef TurtlebotFollower < handle
 
         % This function will only work if object.obsImg is updated from
         % object.updateObsImg function beforehand
-        function [xy] = getPoints(object)
+        function [xy] = getPointsWhite(object)
             % Extract channels channels so we can apply a mask
             redChannel = object.obsImg(:, :, 1);
             greenChannel = object.obsImg(:, :, 2);
             blueChannel = object.obsImg(:, :, 3);
-
             % Threshold to find the blobs
             redMask = redChannel > 160;
             greenMask = greenChannel > 160;
@@ -111,6 +110,27 @@ classdef TurtlebotFollower < handle
             mask = mask > 2;
             % Extract only the largest blobs.
             mask = bwareafilt(mask, 1);
+            % Find centroids.
+            props = regionprops(mask, 'Centroid');
+            % Extract centroids from structure into a double array.
+            xy = vertcat(props.Centroid);
+        end
+        
+        % This function will only work if object.obsImg is updated from
+        % object.updateObsImg function beforehand
+        function [xy] = getPointsGreen(object)
+            % Extract channels so we can apply a mask
+            redChannel = object.obsImg(:, :, 1);
+            greenChannel = object.obsImg(:, :, 2);
+            blueChannel = object.obsImg(:, :, 3);
+            % Threshold to find the bright blobs.
+            redMask = redChannel < 128;
+            greenMask = greenChannel > 90;
+            blueMask = blueChannel < 128;
+            mask = redMask + greenMask + blueMask;
+            mask = mask > 2;
+            % Extract only the 4 largest blobs.
+            mask = bwareafilt(mask, 4);
             % Find centroids.
             props = regionprops(mask, 'Centroid');
             % Extract centroids from structure into a double array.
