@@ -13,7 +13,7 @@ function [] = main(IPAddress)
         Turtle.updateObsDepth;
 
         % Calculate the angular velocity
-        xy = Turtle.getPointsWhite  % Get the marker positions within the camera frame
+        xy = Turtle.getPointsWhite;  % Get the marker positions within the camera frame
         location2 = xy(1,1) - Turtle.CAMERA_CC(1);
         angularVelocity = 0.2 * -Turtle.MAX_SPEED(2) * location2/(Turtle.IMAGE_SIZE(1)/2);
 
