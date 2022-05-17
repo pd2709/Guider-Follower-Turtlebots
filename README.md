@@ -1,4 +1,4 @@
-# Guider-Follower-Turtlebots using a 4-Dot Marker
+# Guider-Follower-Turtlebots using a Marker
 SCMS-AUT2022
 This project uses MATLAB and ROS to control a Turtlebot3 waffle. By using an RGB-D camera on the follower turtlebot the robot is able to track the white marker on the leader turtlebot and follow it while keeping a set distance away. Marker position within the image frame determines angular velocity, and the depth value on the marker position determines the linear velocity. Unused code includes the ability to find 4 green dots for use within the visualServoing function, this code resulted in choppy turtlebot motion and was ultimately replaced with the simpler white dot / depth sensor functionality.
 
